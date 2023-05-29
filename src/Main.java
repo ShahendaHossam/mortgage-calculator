@@ -1,17 +1,29 @@
+import java.text.NumberFormat;
+import java.util.Scanner;
+
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
 public class Main {
     public static void main(String[] args) {
-        // Press Alt+Enter with your caret at the highlighted text to see how
-        // IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        final byte PERCENT = 100;
+        final byte MONTHS_IN_YEAR = 12;
+        Scanner scanner = new Scanner(System.in);
 
-        // Press Shift+F10 or click the green arrow button in the gutter to run the code.
-        for (int i = 1; i <= 5; i++) {
+        System.out.print("Principal: ");
+        int principal = scanner.nextInt();
 
-            // Press Shift+F9 to start debugging your code. We have set one breakpoint
-            // for you, but you can always add more by pressing Ctrl+F8.
-            System.out.println("i = " + i);
-        }
+        System.out.print("Annual Interest Rate: ");
+        double interest_rate = scanner.nextDouble();
+        double interest_rate_percent = interest_rate / PERCENT;
+        double annual_interest_rate = interest_rate_percent / MONTHS_IN_YEAR;
+
+        System.out.print("Period(Years): ");
+        int period = scanner.nextShort();
+        int year_period = period * MONTHS_IN_YEAR;
+
+        double mortgage_calculator = principal * (annual_interest_rate * Math.pow(1 + annual_interest_rate , year_period)) / (Math.pow(1 + annual_interest_rate , year_period) - 1);
+        NumberFormat currency = NumberFormat.getCurrencyInstance();
+        String result = currency.format(mortgage_calculator);
+        System.out.println(result);
     }
 }
