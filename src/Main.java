@@ -8,11 +8,11 @@ public class Main {
         final byte PERCENT = 100;
         final byte MONTHS_IN_YEAR = 12;
 
-        double annual_interest_rate = 0;
+        double annual_interest_rate ;
 
-        int principal = 0;
-        double interest_rate = 0;
-        int period = 0;
+        int principal;
+        double interest_rate;
+        int period;
         Scanner scanner = new Scanner(System.in);
 
 //        first print in the project
