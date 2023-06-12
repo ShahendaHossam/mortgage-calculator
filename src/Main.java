@@ -5,8 +5,8 @@ import java.util.Scanner;
 // then press Enter. You can now see whitespace characters in your code.
 public class Main {
     //we should but static keyword because all methods in this class are static  and they can only access static variables
-    final static byte PERCENT = 100;
-    final static byte MONTHS_IN_YEAR = 12;
+    final static byte PERCENT = 100;  //field is a variable thst we defined at a class and it is accessible to all methods in that class
+    final static byte MONTHS_IN_YEAR = 12;  //field
 
     public static void main(String[] args) {
         int principal;
@@ -115,18 +115,24 @@ public class Main {
 
         double mortgage_calculator = calculateMortgage(principal, annualInterest, years);
 
-        double payment_schedule = calculatePaymentSchedule(principal, annualInterest, years, mortgage_calculator);
 
 
         NumberFormat currency = NumberFormat.getCurrencyInstance();
         String result = currency.format(mortgage_calculator);
-        String result2 = currency.format(payment_schedule);
-
+        System.out.println();
         System.out.println("MORTGAGE");
+        System.out.println("--------");
         System.out.println("Monthly Payments: " + result);
 
+        System.out.println();
         System.out.println("PAYMENT SCHEDULE");
-        System.out.println(result2);
+        System.out.println("-----------------");
+        //to iterate over all the payments and after each payment
+        for(short month = 1; month <= years * MONTHS_IN_YEAR; month++ ){
+            double balance = calculatePaymentSchedule(principal, annualInterest, years, month);
+            System.out.println(NumberFormat.getCurrencyInstance().format(balance)); 
+
+        }
 
     }
 
