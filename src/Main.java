@@ -4,6 +4,10 @@ import java.util.Scanner;
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
 public class Main {
+    //we should but static keyword because all methods in this class are static  and they can only access static variables
+    final static byte PERCENT = 100;
+    final static byte MONTHS_IN_YEAR = 12;
+
     public static void main(String[] args) {
         int principal;
         float annualInterest;
@@ -58,8 +62,6 @@ public class Main {
         // }
         // }
 
-
-
         // another solution:-
         // this solution is the right one because in the above code will make all the
         // cases right except one case which is the user enters all the condition right
@@ -107,20 +109,28 @@ public class Main {
 
         // }
 
-
         principal = (int) readNumber("Principal: ", 1_000, 1_000_000);
         annualInterest = (float) readNumber("Annual Interest Rate: ", 1, 30);
         years = (byte) readNumber("Period(Years): ", 1, 30);
 
         double mortgage_calculator = calculateMortgage(principal, annualInterest, years);
 
+        double payment_schedule = calculatePaymentSchedule(principal, annualInterest, years, mortgage_calculator);
+
+
         NumberFormat currency = NumberFormat.getCurrencyInstance();
         String result = currency.format(mortgage_calculator);
-        System.out.println(result);
+        String result2 = currency.format(payment_schedule);
+
+        System.out.println("MORTGAGE");
+        System.out.println("Monthly Payments: " + result);
+
+        System.out.println("PAYMENT SCHEDULE");
+        System.out.println(result2);
+
     }
 
-
-    public static double readNumber(String prompt, double min, double max){
+    public static double readNumber(String prompt, double min, double max) {
         Scanner scanner = new Scanner(System.in);
         double value;
         while (true) {
@@ -134,23 +144,39 @@ public class Main {
         return value;
     }
 
-
     // Extracting Methods
     // create methods instead of coding all in the main function
     public static double calculateMortgage(
             int principal,
             float annualInterest,
             byte years) {
-        final byte PERCENT = 100;
-        final byte MONTHS_IN_YEAR = 12;
 
         float annual_interest_rate = annualInterest / PERCENT / MONTHS_IN_YEAR;
-        float year_period = years * MONTHS_IN_YEAR;
+        float numberOfPayments = years * MONTHS_IN_YEAR;
 
         double mortgage_calculator = principal
-                * (annual_interest_rate * Math.pow(1 + annual_interest_rate, year_period))
-                / (Math.pow(1 + annual_interest_rate, year_period) - 1);
+                * (annual_interest_rate * Math.pow(1 + annual_interest_rate, numberOfPayments))
+                / (Math.pow(1 + annual_interest_rate, numberOfPayments) - 1);
 
         return mortgage_calculator;
     }
+
+    public static double calculatePaymentSchedule(
+            int principal,
+            float annualInterest,
+            byte years,
+            double totalMonthlyPayment) {
+
+
+        float annual_interest_rate = annualInterest / PERCENT / MONTHS_IN_YEAR;
+        float numberOfPayments = years * MONTHS_IN_YEAR;
+
+        // Main obj = new Main();
+        double payment_schedule = principal * (Math.pow(1 + annual_interest_rate, numberOfPayments)
+                - Math.pow(1 + annual_interest_rate, totalMonthlyPayment))
+                / (Math.pow(1 + annual_interest_rate, numberOfPayments) - 1);
+
+        return payment_schedule;
+    }
+
 }
