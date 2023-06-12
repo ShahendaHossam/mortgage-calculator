@@ -117,13 +117,22 @@ public class Main {
 
 
 
+        printMortgage(mortgage_calculator);
+
+        printPaymentSchedule(principal, annualInterest, years);
+
+    }
+
+    private static void printMortgage(double mortgage_calculator) {
         NumberFormat currency = NumberFormat.getCurrencyInstance();
         String result = currency.format(mortgage_calculator);
         System.out.println();
         System.out.println("MORTGAGE");
         System.out.println("--------");
         System.out.println("Monthly Payments: " + result);
+    }
 
+    private static void printPaymentSchedule(int principal, float annualInterest, byte years) {
         System.out.println();
         System.out.println("PAYMENT SCHEDULE");
         System.out.println("-----------------");
@@ -133,7 +142,6 @@ public class Main {
             System.out.println(NumberFormat.getCurrencyInstance().format(balance)); 
 
         }
-
     }
 
     public static double readNumber(String prompt, double min, double max) {
